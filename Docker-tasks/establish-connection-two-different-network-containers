@@ -1,1 +1,30 @@
-munna
+### establish connection between two conainers in two different networks ###
+
+# First Create Two Networks
+docker network create mynet-1 && docker network create mynet-2
+
+# check networks
+docker network ls
+
+# pull two different images 
+docker pull nginx:latest && docker pull httpd
+
+# check docker images
+docker images
+
+# run as containers in different networks
+1.docker run --name container01 --network mynet-1 -d nginx
+2.docker run --name container02 --network mynet-2 -d httpd
+
+# check the containers
+docker ps
+
+# check the container ip
+docker inspect container_id
+
+# connect the two networks
+docker connect mynet-1 conatiner02
+
+# check connectivity
+docker exec -it container02 /bin/bash
+ping ip
